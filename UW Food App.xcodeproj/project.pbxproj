@@ -44,7 +44,7 @@
 		8B47E6821FD64CD900590A67 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B47E6811FD64CD900590A67 /* SignInViewController.swift */; };
 		8BA57B971FD7F9A700420A37 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA57B961FD7F9A700420A37 /* HelperFunctions.swift */; };
 		8BA57B9B1FD88F6300420A37 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA57B9A1FD88F6300420A37 /* FavoritesTableViewCell.swift */; };
-		DA8373A724E0CB300028B89C /* PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8373A624E0CB300028B89C /* PulleyViewController.swift */; };
+		DA7FDDF524F131FA0091895F /* MainPulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDDF424F131FA0091895F /* MainPulleyViewController.swift */; };
 		DAAA820C24DD270A00C4F117 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA820B24DD270A00C4F117 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +115,7 @@
 		957826821BA668EA0F017C15 /* Pods-UW Food App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UW Food App.release.xcconfig"; path = "Target Support Files/Pods-UW Food App/Pods-UW Food App.release.xcconfig"; sourceTree = "<group>"; };
 		A647D030C783E28292B98F64 /* Pods-UW Food AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UW Food AppUITests.release.xcconfig"; path = "Target Support Files/Pods-UW Food AppUITests/Pods-UW Food AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BCDDC7BC98A21EA827AC70CD /* Pods-UW Food AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UW Food AppTests.release.xcconfig"; path = "Target Support Files/Pods-UW Food AppTests/Pods-UW Food AppTests.release.xcconfig"; sourceTree = "<group>"; };
-		DA8373A624E0CB300028B89C /* PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PulleyViewController.swift; path = "UW Food App/Controller/PulleyViewController.swift"; sourceTree = SOURCE_ROOT; };
+		DA7FDDF424F131FA0091895F /* MainPulleyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainPulleyViewController.swift; path = "UW Food App/Controller/MainPulleyViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DAAA820B24DD270A00C4F117 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +173,6 @@
 				DAAA820B24DD270A00C4F117 /* MainViewController.swift */,
 				1840B6591FD13B5F00DFE84E /* SearchViewController.swift */,
 				1840B65A1FD13B5F00DFE84E /* FavoritesViewController.swift */,
-				DA8373A624E0CB300028B89C /* PulleyViewController.swift */,
 				8B1551D01FD4F13A00499297 /* RatingViewController.swift */,
 				8B1551D11FD4F13A00499297 /* RatingViewController.xib */,
 			);
@@ -232,6 +231,7 @@
 		8B1551D41FD4F14700499297 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				DA7FDDF424F131FA0091895F /* MainPulleyViewController.swift */,
 				1840B65B1FD13B5F00DFE84E /* DrawerViewController.swift */,
 				1840B6601FD13B5F00DFE84E /* DiscoverMapViewController.swift */,
 				1840B6611FD13B5F00DFE84E /* DiscoverPulleyViewController.swift */,
@@ -588,6 +588,7 @@
 				1840B67F1FD13B5F00DFE84E /* DiscoverMapViewController.swift in Sources */,
 				8B1551C41FD353FF00499297 /* Reachability.swift in Sources */,
 				1840B67D1FD13B5F00DFE84E /* Information.swift in Sources */,
+				DA7FDDF524F131FA0091895F /* MainPulleyViewController.swift in Sources */,
 				1840B68F1FD13B5F00DFE84E /* AppDelegate.swift in Sources */,
 				1840B6791FD13B5F00DFE84E /* SearchViewController.swift in Sources */,
 				1840B67C1FD13B5F00DFE84E /* MasterDetailViewController.swift in Sources */,
@@ -598,7 +599,6 @@
 				1840B6851FD13B5F00DFE84E /* Food.swift in Sources */,
 				8B1551D21FD4F13A00499297 /* RatingViewController.swift in Sources */,
 				8B1551CF1FD41A1100499297 /* Reviews.swift in Sources */,
-				DA8373A724E0CB300028B89C /* PulleyViewController.swift in Sources */,
 				8B47E6821FD64CD900590A67 /* SignInViewController.swift in Sources */,
 				1840B67B1FD13B5F00DFE84E /* DrawerViewController.swift in Sources */,
 				1840B6831FD13B5F00DFE84E /* AccountViewController.swift in Sources */,

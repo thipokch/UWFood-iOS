@@ -44,6 +44,7 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 import PopupDialog
+import Pulley
 
 class DiscoverMapViewController: UIViewController {
     
@@ -72,14 +73,14 @@ class DiscoverMapViewController: UIViewController {
     
     
     // For Pulley Card effects to work
-//    var mapsPadding:UIEdgeInsets {
-//        get {
-//            return googleMaps.padding
-//        }
-//        set(newPadding) {
-//            googleMaps.padding = newPadding
-//        }
-//    }
+    //    var mapsPadding:UIEdgeInsets {
+    //        get {
+    //            return googleMaps.padding
+    //        }
+    //        set(newPadding) {
+    //            googleMaps.padding = newPadding
+    //        }
+    //    }
     
     @IBOutlet weak var googleMaps: GMSMapView!
     
@@ -101,7 +102,7 @@ class DiscoverMapViewController: UIViewController {
         }
     }
     
-
+    
     // Retrieves restaurants data from Firebase (doesn't need the user to be logged in)
     // This method is called only once (when the app first loads)
     func retrieveRestaurantsData() {
@@ -210,10 +211,10 @@ class DiscoverMapViewController: UIViewController {
             return
         }
         guard let hours = [
-            "sun":hourSun, "mon":hourMon,"tues":hourTues, "wed":hourWed,
-            "thurs":hourThurs, "fri":hourFri, "sat":hourSat] as? [String:String] else {
-                print("hours cannot be formed")
-                return
+                "sun":hourSun, "mon":hourMon,"tues":hourTues, "wed":hourWed,
+                "thurs":hourThurs, "fri":hourFri, "sat":hourSat] as? [String:String] else {
+            print("hours cannot be formed")
+            return
         }
         
         let restaurant: Restaurant = Restaurant(
@@ -262,7 +263,7 @@ class DiscoverMapViewController: UIViewController {
             let day = calendar.component(.weekday, from: todayDate) - 1
             let dayValues = ["sun", "mon", "tues", "wed", "thurs", "fri", "sat"]
             let snippet = category + ", " + average_rating + " | Today: " + hours[dayValues[day]]!
-
+            
             self.createAMarker(
                 userData: restaurant,
                 latitude: Double(latitude)!,
@@ -309,10 +310,8 @@ extension DiscoverMapViewController: GMSMapViewDelegate {
         let currentRestaurant = marker as GMSMarker
         self.populateDistanceAndDuration(currentRestaurant.userData as! Restaurant)
         self.retrieveReviews(currentRestaurant.userData as! Restaurant)
-        return false
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        
         userData = marker.userData as! Restaurant
         let vc = UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "MasterDetail") as! MasterDetailViewController
         vc.userData = userData
@@ -336,9 +335,43 @@ extension DiscoverMapViewController: GMSMapViewDelegate {
             Information(label: "Cash", information: "Yes")
         ]
         vc.reviewsItem = self.reviewsItem
-        let navBarOnVC: UINavigationController = UINavigationController(rootViewController: vc)
-        self.present(navBarOnVC, animated: true, completion: nil)
+        //        let navBarOnVC: UINavigationController = UINavigationController(rootViewController: vc)
+        //        self.present(navBarOnVC, animated: true, completion: nil)
+        setDrawer(toController: vc)
+//        setDrawerPosition(.open)
+        
+        return false
     }
+    
+    //    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+    //        userData = marker.userData as! Restaurant
+    //        let vc = UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "MasterDetail") as! MasterDetailViewController
+    //        vc.userData = userData
+    //        vc.hoursItem = [
+    //            Information(label: "Sun", information: userData._hours["sun"]!),
+    //            Information(label: "Mon", information: userData._hours["mon"]!),
+    //            Information(label: "Tues", information: userData._hours["tues"]!),
+    //            Information(label: "Wed", information: userData._hours["wed"]!),
+    //            Information(label: "Thurs", information: userData._hours["thurs"]!),
+    //            Information(label: "Fri", information: userData._hours["fri"]!),
+    //            Information(label: "Sat", information: userData._hours["sat"]!)
+    //        ]
+    //        vc.locationsItem = [
+    //            Information(label: "Building", information: userData._building),
+    //            Information(label: "Walking Distance", information: userData._distance),
+    //            Information(label: "Walking Duration", information: userData._duration)
+    //        ]
+    //        vc.paymentsItem = [
+    //            Information(label: "Husky Card", information: "Yes"),
+    //            Information(label: "Debit, Credit Card", information: "Yes (VISA, MasterCard)"),
+    //            Information(label: "Cash", information: "Yes")
+    //        ]
+    //        vc.reviewsItem = self.reviewsItem
+    ////        let navBarOnVC: UINavigationController = UINavigationController(rootViewController: vc)
+    ////        self.present(navBarOnVC, animated: true, completion: nil)
+    //        setDrawer(toController: vc)
+    //        setDrawerPosition(.open)
+    //    }
     
     // This method fetches the Google Maps API to find out how far the user's walking distance and duration are
     // from the user's destination. Note that this method occurs after initial restaurants data have been
@@ -356,21 +389,21 @@ extension DiscoverMapViewController: GMSMapViewDelegate {
             "key": googleMapDistanceMatrixAPIKey]
         AF.request(googleMapDistanceURL, method: .get, parameters: parameters).responseJSON { response in switch response.result {
         case .success(_):
-                    let result : JSON = JSON(response.value!)
-                    for currentElement in result["rows"][0]["elements"].arrayValue {
-                        let status = currentElement["status"].string
-                        if (status == "OK") {
-                            let distance = "\(currentElement["distance"]["text"].string ?? "")"
-                            let duration = "\(currentElement["duration"]["text"].string ?? "")"
-                            let currentRestaurant = self.restaurants.restaurantsData[id]
-                            currentRestaurant?._distance = distance
-                            currentRestaurant?._duration = duration
-                            self.restaurants.restaurantsData[id] = currentRestaurant
-                        }
-                    }
-        case .failure(_):
-                    print("Error \(String(describing: response.error))")
+            let result : JSON = JSON(response.value!)
+            for currentElement in result["rows"][0]["elements"].arrayValue {
+                let status = currentElement["status"].string
+                if (status == "OK") {
+                    let distance = "\(currentElement["distance"]["text"].string ?? "")"
+                    let duration = "\(currentElement["duration"]["text"].string ?? "")"
+                    let currentRestaurant = self.restaurants.restaurantsData[id]
+                    currentRestaurant?._distance = distance
+                    currentRestaurant?._duration = duration
+                    self.restaurants.restaurantsData[id] = currentRestaurant
+                }
             }
+        case .failure(_):
+            print("Error \(String(describing: response.error))")
+        }
         }
     }
     
@@ -427,5 +460,17 @@ extension DiscoverMapViewController: CLLocationManagerDelegate {
         popup.addButton(close)
         self.present(popup, animated: true, completion: nil)
         print(error);
+    }
+    
+    func setDrawer(toController vc: UIViewController) {
+        if let parent = self.parent as? PulleyViewController {
+            parent.setDrawerContentViewController(controller: vc, animated: true)
+        }
+    }
+    
+    func setDrawerPosition(_ position: PulleyPosition) {
+        if let parent = self.parent as? PulleyViewController {
+            parent.setDrawerPosition(position: position, animated: true)
+        }
     }
 }
