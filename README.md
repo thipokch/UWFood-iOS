@@ -124,7 +124,7 @@ The `PlaceID` is what is stored as the value for the key `restaurantID`.
 
 ## Contact
 
-Submit a pull request / send an email to [nkongurai@gmail.com](mailto:nkongurai@gmail.com) for any issues.
+Submit a pull request / send an email to [thipok.ch@gmail.com](mailto:thipok.ch@gmail.com) for any issues.
 
 ----
 
